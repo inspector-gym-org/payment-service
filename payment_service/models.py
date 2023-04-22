@@ -39,8 +39,9 @@ class ItemType(Enum):
 
 
 class Item(BaseModel):
-    item_type: ItemType
+    price: float
 
+    item_type: ItemType
     training_plan_id: UUID | None
 
 
