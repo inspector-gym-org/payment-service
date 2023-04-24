@@ -28,6 +28,7 @@ class PaymentStatus(Enum):
     REJECTED = 2
 
     PROCESSING = 3
+    CREATED = 4
 
 
 class User(BaseModel):
@@ -47,14 +48,21 @@ class Item(BaseModel):
 
 class Payment(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    status: PaymentStatus = Field(default=PaymentStatus.PROCESSING)
+    status: PaymentStatus = Field(default=PaymentStatus.CREATED)
 
     user: User
     items: list[Item]
 
     created: datetime = Field(default_factory=datetime.now)
+    last_updated: datetime | None = Field(default=None)
 
     class Config:
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
+
+
+class PaymentUpdate(BaseModel):
+    status: PaymentStatus
+
+    last_updated: datetime = Field(default_factory=datetime.now)

@@ -10,6 +10,7 @@ client = AsyncIOMotorClient(
 )
 
 database = client[settings.mongo_database_name]
+payments_collection = database["payments"]
 
 
 async def create_indexes() -> None:
