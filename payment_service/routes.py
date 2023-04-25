@@ -2,9 +2,14 @@ from fastapi import APIRouter, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 
 from .database import payments_collection
+from .logging_route import LoggingRoute
 from .models import Payment, PaymentUpdate
 
-router = APIRouter(prefix="/payments", tags=["payments"])
+router = APIRouter(
+    prefix="/payments",
+    tags=["payments"],
+    route_class=LoggingRoute,
+)
 
 
 @router.post("/", response_model=Payment, status_code=status.HTTP_201_CREATED)
