@@ -2,8 +2,6 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    app_root_path: str
-
     mongo_host: str
     mongo_port: int
 
