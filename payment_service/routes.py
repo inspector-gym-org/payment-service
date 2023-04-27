@@ -6,7 +6,6 @@ from .logging_route import LoggingRoute
 from .models import Payment, PaymentUpdate
 
 router = APIRouter(
-    prefix="/payments",
     tags=["payments"],
     route_class=LoggingRoute,
 )
