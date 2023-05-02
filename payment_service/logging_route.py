@@ -18,7 +18,7 @@ class LoggingRoute(APIRoute):
                 logger.debug("Request headers: %s", dict(headers))
 
             if data := await request.body():
-                logger.debug("Request data: %s", data)
+                logger.debug("Request data: %s", data.decode())
 
             if headers := response.headers:
                 logger.debug("Response data: %s", dict(headers))
