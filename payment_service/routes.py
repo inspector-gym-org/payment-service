@@ -6,6 +6,7 @@ from .logging_route import LoggingRoute
 from .models import Payment, PaymentUpdate
 
 router = APIRouter(
+    prefix="/payments",
     tags=["payments"],
     route_class=LoggingRoute,
 )
@@ -19,7 +20,7 @@ async def create_payment(payment: Payment) -> Payment:
     return await payments_collection.find_one({"_id": inserted_payment.inserted_id})
 
 
-@router.get("/{payment_id}", response_model=Payment)
+@router.get("/{payment_id}/", response_model=Payment)
 async def get_payment(payment_id: str) -> Payment:
     if payment := await payments_collection.find_one({"_id": payment_id}):
         return payment
@@ -29,7 +30,7 @@ async def get_payment(payment_id: str) -> Payment:
     )
 
 
-@router.put("/{payment_id}", response_model=Payment)
+@router.put("/{payment_id}/", response_model=Payment)
 async def update_payment(payment_id: str, payment_update: PaymentUpdate) -> Payment:
     update_result = await payments_collection.update_one(
         {"_id": payment_id},
