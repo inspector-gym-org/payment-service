@@ -53,7 +53,6 @@ class Payment(BaseModel):
     user: User
     items: list[Item]
 
-    created: datetime = Field(default_factory=datetime.now)
     updated: datetime = Field(default_factory=datetime.now)
 
     class Config:
