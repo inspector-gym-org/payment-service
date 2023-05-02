@@ -3,7 +3,7 @@ from fastapi.encoders import jsonable_encoder
 
 from .database import payments_collection
 from .logging_route import LoggingRoute
-from .models import Payment, PaymentUpdate
+from .models import Payment, PaymentCreate, PaymentUpdate
 
 router = APIRouter(
     prefix="/payments",
@@ -13,8 +13,8 @@ router = APIRouter(
 
 
 @router.post("/", response_model=Payment, status_code=status.HTTP_201_CREATED)
-async def create_payment(payment: Payment) -> Payment:
-    payment_json = jsonable_encoder(payment)
+async def create_payment(payment_create: PaymentCreate) -> Payment:
+    payment_json = jsonable_encoder(Payment(**payment_create.dict()))
 
     inserted_payment = await payments_collection.insert_one(payment_json)
     return await payments_collection.find_one({"_id": inserted_payment.inserted_id})

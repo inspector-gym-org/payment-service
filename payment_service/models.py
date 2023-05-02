@@ -62,7 +62,10 @@ class Payment(BaseModel):
         json_encoders = {ObjectId: str}
 
 
+class PaymentCreate(BaseModel):
+    user: User
+    items: list[Item]
+
+
 class PaymentUpdate(BaseModel):
     status: PaymentStatus
-
-    updated: datetime = Field(default_factory=datetime.now)
