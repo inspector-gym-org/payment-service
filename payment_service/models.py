@@ -47,14 +47,13 @@ class Item(BaseModel):
 
 
 class Payment(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    status: PaymentStatus = Field(default=PaymentStatus.CREATED)
+    id: PyObjectId = Field(alias="_id")
+    status: PaymentStatus
 
     user: User
     items: list[Item]
 
-    created: datetime = Field(default_factory=datetime.now)
-    last_updated: datetime | None = Field(default=None)
+    updated: datetime
 
     class Config:
         allow_population_by_field_name = True
@@ -62,7 +61,19 @@ class Payment(BaseModel):
         json_encoders = {ObjectId: str}
 
 
+class PaymentWrite(BaseModel):
+    status: PaymentStatus = Field(default=PaymentStatus.CREATED)
+
+    user: User
+    items: list[Item]
+
+    updated: datetime = Field(default_factory=datetime.now)
+
+
+class PaymentCreate(BaseModel):
+    user: User
+    items: list[Item]
+
+
 class PaymentUpdate(BaseModel):
     status: PaymentStatus
-
-    last_updated: datetime = Field(default_factory=datetime.now)
