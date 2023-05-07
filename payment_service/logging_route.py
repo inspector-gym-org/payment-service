@@ -1,5 +1,5 @@
 from logging import getLogger
-from typing import Callable
+from typing import Any, Callable, Coroutine
 
 from fastapi import Request, Response
 from fastapi.routing import APIRoute
@@ -8,7 +8,7 @@ logger = getLogger("service")
 
 
 class LoggingRoute(APIRoute):
-    def get_route_handler(self) -> Callable:
+    def get_route_handler(self) -> Callable[..., Coroutine[Any, Any, Response]]:
         original_route_handler = super().get_route_handler()
 
         async def custom_route_handler(request: Request) -> Response:
