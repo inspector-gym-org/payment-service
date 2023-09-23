@@ -4,12 +4,12 @@ version = "0.1.0"
 description = ""
 authors = ["Andrew Yatsura <andrewyazura203@gmail.com>"]
 readme = "README.md"
-packages = [{include = "payment_service"}]
+packages = [{ include = "payment_service" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "^0.95.1"
-uvicorn = {extras = ["standard"], version = "^0.21.1"}
+uvicorn = { extras = ["standard"], version = "^0.21.1" }
 motor = "^3.1.2"
 
 
